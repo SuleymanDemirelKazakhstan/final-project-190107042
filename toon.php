@@ -247,7 +247,8 @@
 			if ($sql = $this->conn->query($query)) {
 				$data = mysqli_fetch_assoc($sql);
 			} 
-			return $data['name'];
+			if(isset($data['name']))
+				return $data['name'];
 		}
 
 		public function getToonById($id){
