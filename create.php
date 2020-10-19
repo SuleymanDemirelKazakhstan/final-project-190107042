@@ -8,7 +8,7 @@
     include 'partials/header.php';
 ?>
 
-<h2>Add new Webtoon</h2>
+<h2>Add New Webtoon</h2>
 
 <form method="post" enctype="multipart/form-data" action="" autocomplete="off" class="create-form">
 	<div class="d-flex">
