@@ -32,7 +32,7 @@
 <h2>Edit Webtoon - <?php echo $toon['name'] ?></h2>
 
 <form method="POST" enctype="multipart/form-data" action="" autocomplete="off" class="create-form">
-	<div class="d-flex">
+	<div class="d-flex sm-col" style="padding: 0">
 		<div>
 			<div class="form-group">
 				<img src="<?php echo (isset($toon['img_dir'])) ?  "/${toon['img_dir']}" : "../../partials/no-img.jpg" ?>" id="output">
@@ -107,7 +107,7 @@
 		<textarea name="description" rows="5" cols="50" value="<?php echo $toon['description'] ?> " class="form-control <?php echo $errors['description'] ? 'is-invalid' : '' ?>"><?php echo $toon['description'] ?></textarea>
 		<div class="invalid_form"><?php echo $errors['description'] ?></div>
 	</div>
-	<button type="submit" name="submit">Submit</button>
+	<button type="submit" class="btn" name="submit" >Submit</button>
 </form>
 <script>
 var loadFile = function(event) {
