@@ -29,12 +29,6 @@
 			if (isset($_POST['submit'])) {
 				if (isset($_POST['name']) && isset($_POST['altname']) && isset($_POST['author']) && isset($_POST['description']) && isset($_POST['year']) && isset($_POST['status']) && isset($_POST['genre'])) {
 
-					// $target_dir ="/images/";
-					// $target_file = $target_dir . basename($_FILES["picture"]["name"]);
-
-	  		// 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	  		// 		$extensions_arr = array("jpg","jpeg","png");
-
 	  				$target_file = basename($_FILES["picture"]["name"]);
 
 	  				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -42,8 +36,7 @@
 
 
 					if (!empty($_POST['name']) && !empty($_POST['altname']) && !empty($_POST['author']) && !empty($_POST['description']) && !empty($_POST['year']) && !empty($_POST['status']) && !empty($_POST['genre']) && in_array($imageFileType,$extensions_arr)) {
-						
-					// if (!empty($_POST['name']) && !empty($_POST['altname']) && !empty($_POST['author']) && !empty($_POST['description']) && !empty($_POST['year']) && !empty($_POST['status']) && !empty($_POST['genre'])) {
+
 
 						$name = $_POST['name'];
 						$altname = $_POST['altname'];
@@ -56,8 +49,6 @@
 						foreach($_POST['genre'] as $gen){
 							$genre = $genre.$gen." ";
 				        }
-
-						// $query = "INSERT INTO toons (name, altname, author, description, status, release, genre, img_dir) VALUES ('$name', '$alrname', '$author', '$description', '$status', '$release', '$genre', '$dir"."img.$imageFileType')";
 
 						$query = "INSERT INTO toons (name, altname, author, description,  year, status, genre) VALUES ('$name', '$altname', '$author', '$description', '$year', '$status', '$genre')";
 						
@@ -77,9 +68,61 @@
 							copy($srcFile, $destination);
 							
 							move_uploaded_file($_FILES['picture']['tmp_name'],$dir."img.".$imageFileType);
-							echo "<script>window.location.href = 'index.php'</script>";
+							echo "<script>window.location.href = '$dir'</script>";
 						}
 					}
+				}
+		  		
+			}
+		}
+		public function updateToon($id){
+
+			if (isset($_POST['submit'])) {
+				if (isset($_POST['name']) && isset($_POST['altname']) && isset($_POST['author']) && isset($_POST['description']) && isset($_POST['year']) && isset($_POST['status']) && isset($_POST['genre'])) {
+
+					if (!empty($_POST['name']) && !empty($_POST['altname']) && !empty($_POST['author']) && !empty($_POST['description']) && !empty($_POST['year']) && !empty($_POST['status']) && !empty($_POST['genre'])) {
+						$name = $_POST['name'];
+						$altname = $_POST['altname'];
+						$description = $_POST['description'];
+						$author = $_POST['author'];
+						$year = $_POST['year'];
+						$status = $_POST['status'];
+						
+						$genre = "";
+						foreach($_POST['genre'] as $gen){
+							$genre = $genre.$gen." ";
+				        }
+
+				        $query = "UPDATE toons SET name = '$name', altname = '$altname', author = '$author', description = '$description',  year = '$year', status = '$status', genre = '$genre' WHERE id = '$id'";
+				        
+						if ($sql = $this->conn->query($query)) {
+							$dir = "toons/$id/";	
+							if (isset($_POST['picture']) && $_POST['picture']['name']) {
+					        	$target_file = basename($_FILES["picture"]["name"]);
+
+				  				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+				  				$extensions_arr = array("jpg","jpeg","png");
+
+				  				if(in_array($imageFileType,$extensions_arr)){
+				  					
+
+				  					$toon = $this->getToonById($id);
+				  					$oldImg = $_SERVER['DOCUMENT_ROOT']."/".$toon['img_dir'];
+				  					
+				  					$query = "UPDATE toons SET img_dir = '$dir"."img.$imageFileType' WHERE id = '$id'";
+									if($this->conn->query($query)){
+										unlink($oldImg);
+										move_uploaded_file($_FILES['picture']['tmp_name'],$dir."img.".$imageFileType);
+									}
+				  				}
+					        }
+							echo "<script>window.location.href = '../../$dir'</script>";
+						}
+					}else{
+						echo "<script>alert('error')</script>";
+					}
+				}else{
+					echo print_r($_POST);
 				}
 		  		
 			}
@@ -269,15 +312,39 @@
 		}
 		
 		public function delete($id){
+			$dir = $_SERVER['DOCUMENT_ROOT'];
+
+			$dirPath = $dir."/toons/".$id;
+
 			$query = "DELETE FROM toons where id = '$id'";
 			if ($sql = $this->conn->query($query)) {
+				$this->deleteDir($dirPath);
 				return true;
 			}
 			else{
 				return false;
 			}
 		}
+		public function deleteDir($dirPath) {
+		    if (! is_dir($dirPath)) {
+		        throw new InvalidArgumentException("$dirPath must be a directory");
+		    }
+		    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+		        $dirPath .= '/';
+		    }
+		    $files = glob($dirPath . '*', GLOB_MARK);
+		    foreach ($files as $file) {
+		        if (is_dir($file)) {
+		            self::deleteDir($file);
+		        } else {
+		            unlink($file);
+		        }
+		    }
+		    rmdir($dirPath);
+		}
 	}
+	
+
 	class chapter{
 	    public $prev = "";
 	    public $next = "";
