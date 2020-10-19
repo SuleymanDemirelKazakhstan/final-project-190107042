@@ -47,7 +47,7 @@
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 10; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -96,7 +96,7 @@
 
 <div>
 	<div class="d-flex">
-	<h1><?php echo $toon['name'] ?></h1>
+	<h2><?php echo $toon['name'] ?></h2>
 
 	<a href="../update.php?id=<?php echo $id ?>" class="btn edit" style="margin: auto; margin-right: 10px">EDIT</a>
 	
@@ -136,7 +136,7 @@
 	}
 	</script>
 
-	<div class="d-flex">
+	<div class="d-flex sm-col">
 		<img src="<?php echo $toon['img_dir'] ? "img.".strtolower(pathinfo($toon['img_dir'],PATHINFO_EXTENSION)) : "../../partials/no-img.jpg"?>">
 		<div class="right">
 			<table>
@@ -187,6 +187,7 @@
 			</table>
 		</div>
 	</div>	
+	<h2>Summary</h2>
 	<p><?php echo $toon['description'] ?></p>	
 	<div class="chapter-list">
 		<div class="d-flex">
