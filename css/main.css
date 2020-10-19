@@ -15,27 +15,74 @@ body{
 	background-color: white;
 	background-image: url("../../../../partials/dot-grid.png");
 }
-
-
-header{
-	padding: 0 100px;
-	flex-shrink: 0;
-	height: 60px;
-	display: flex;
-	justify-content: space-between;
-	border-bottom: solid 1px rgba(0,48,73,0.7);
-	background: white; 
+.container{
+	width: 100%;
+	margin: 0 auto; 
+	height: 100%;
 }
+.d-flex{
+	display: flex;
+}
+header{
+	background: white; 
+	border-bottom: solid 1px rgba(0,48,73,0.7);
+	height: 60px;
+}
+footer{
+	border-top: solid 1px #E3E3E3; 
+	background: #F7F7F7;
+	height: 100px;
+	flex-shrink: 0;
+	display: flex;
+	font-size: 14px;
+}
+footer span{
+	background: inherit;
+	margin: auto;	
+	color: #A3A3A3;
+}
+
 nav{
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-content: center;
+	position: relative;
 }
 nav div{
 	display: flex;
 }
-nav a{
+#nav{
+	display: none;
+	z-index: 5;
+}
+#nav.show{
+	display: flex;
+	flex-direction: column;
+}
+.bars{
+	display: none;
+}
+
+.dropdown{
+	display: block;
+	float: left;
+	overflow: hidden;
+}
+.dropbtn{
+	cursor: pointer;
+}
+.drop-content{
+	display: none;
+  	background-color: #f9f9f9;
+  	z-index: 5;
+}
+#drop.show{
+	display: block;
+}
+
+
+nav a:not(.bars){
 	display: flex;
 	height: 100%;
 	align-content: center;
@@ -47,28 +94,12 @@ nav a span{
 	margin: auto;
 	color: inherit;
 }
-nav a:hover{
+nav a:hover.not(.bars){
 	background-color: #003049;
 	color: white;
 }
-.dropdown{
-	display: block;
-	float: left;
-	overflow: hidden;
-}
-.dropbtn{
-	cursor: pointer;
-}
-.drop-content{
-	display: none;
-  	position: absolute;
-  	background-color: #f9f9f9;
-  	min-width: 160px;
-  	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  	z-index: 2;
-}
-.dropdown:hover .drop-content{
-	display: block;
+nav .btn{
+	background-color: #003049!important;
 }
 #search{
 	height: 100%;
@@ -122,29 +153,42 @@ nav a:hover{
   	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   	z-index: 2;
 }
-main{
-	margin: auto 100px;
-	margin-top: 20px; 
-	flex-grow: 1;
 
+header .container{
+	flex-shrink: 0;
+	display: flex;
+	justify-content: space-between;
 }
+
+main{
+	flex-grow: 1;
+	display: flex;
+	height: 100%;
+}
+
 .toon-container{
 	background-color: white;
 }
-.toon-row{
+.toons{
 	display: flex;
+	flex-wrap: wrap;
+}
+.toon-block{
+	display: inline-block;
+	margin-bottom: 20px;
+	flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
 }
 .toon{
 	width: 200px;
 	height: 350px;
-	margin: 0 auto;	
+	padding: 10px;
 	position: relative;
-}
-.toon:first-child{
-	margin-left: 0;	
-}
- .toon:last-child{
-	margin-right: 0;	
 }
 .toon-img{
 	width: 200px;
@@ -161,8 +205,8 @@ main{
 .toon-bookmark{
 	z-index: 2;
 	position: absolute;
-	top: 10px;
-	left: 10px;
+	top: 20px;
+	left: 20px;
 	color: gold;
 	cursor: pointer;
 }
@@ -200,26 +244,17 @@ main{
 i{
 	color: inherit;
 }
-.d-flex{
-	display: flex;
-}
-.d-flex img{
-	width: 200px;
-	height: 300px;
-	object-fit: cover;
-	margin-right: 20px;
-}
-.d-flex td:first-child{
-	font-weight: 700;
-	padding-right: 20px; 
-}
+
+
 .btn{
+	border: none;
+	outline: none;
+	cursor: pointer;
 	white-space: nowrap;
 	padding: 5px 10px;
 	border-radius: 10px;
 	background-color: #003049;
 	color: white;
-
 	font-weight: 500;
 }
 .btn.edit{
@@ -244,6 +279,18 @@ i{
 	background-color: red;
 }
 
+.d-flex img{
+	width: 200px;
+	height: 300px;
+	object-fit: cover;
+	margin-right: 20px;
+}
+.d-flex td:first-child{
+	font-weight: 700;
+	padding-right: 20px; 
+}
+
+
 .chapter-list ul{
 	max-height: 300px;
 	list-style-type:none;
@@ -261,38 +308,14 @@ i{
 	color: white;
 }
 
-.reader{
-	text-align: center;
-}
-.reader img{
-	font-size: 0;
-	margin: auto;
-	display: block;
-}
-.reader h2{
-	text-align: center;
-}
-.ch-nav{
-	display: flex;
-	margin-bottom: 20px;
-}
-.ch-nav a{
-	margin: auto;
-}
-a.left{
-	margin-left: 50px;
-}
-a.right{
-	margin-right:50px;
-}
-
-
 /*Create Form*/
 .create-form{
 	padding: 10px;
 	background-color: white;
 }
 .form-group{
+	max-width: 400px;
+	width: 100%;
 	display: block;
 	margin-bottom: 10px;
 }
@@ -328,30 +351,145 @@ a.right{
 .form-control-file{
 	display: none;
 }
-
+textarea { 
+	width: 100%;
+    resize:vertical;
+}
 option{
 	width: 100%;
 }
 
-
-
-
-
-
-
-
-
-
-footer{
-	border-top: solid 1px #E3E3E3; 
-	background: #F7F7F7;
-	height: 100px;
-	flex-shrink: 0;
-	display: flex;
-	font-size: 14px;
+.reader{
+	text-align: center;
 }
-footer span{
-	background: inherit;
-	margin: auto;	
-	color: #A3A3A3;
+.reader img{
+	font-size: 0;
+	margin: auto;
+	display: block;
+}
+.reader h2{
+	text-align: center;
+}
+.ch-nav{
+	display: flex;
+	margin-bottom: 20px;
+}
+.ch-nav a{
+	margin: auto;
+}
+a.left{
+	margin-left: 0;
+}
+a.right{
+	margin-right:0;
+}
+
+.admin-table{
+	background-color: white;
+	width: 100%;
+	border-collapse: collapse; 
+}
+.admin-table th{
+	text-align: left;
+}
+.admin-table tr{
+	height: 40px;
+}
+.admin-table tr:nth-child(even){
+	background-color: rgba(0,48,73,0.05);
+}
+.admin-table td{
+	padding-right: 20px;
+}
+.admin-table td:last-child{
+	padding-right: 0;
+}
+.admin-table td:nth-child(2){
+	width: 100%;
+}
+.admin-table td:nth-child(3), .admin-table td:nth-child(4){
+	vertical-align: middle;
+}
+@media only screen and (max-width: 767px){
+	.container{
+		max-width: 560px;
+		padding: 0 10px;
+	}
+	.bars{
+		display: block;
+		margin: auto;
+		margin-right: 20px;
+	}
+	#nav{
+		width: 100%;
+		position: absolute;
+		top: 60px;
+		background: white;
+	}
+	.toons{
+		flex-direction: column;
+	}
+
+	.toon-block{
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+	.toon{
+		margin: auto;
+	}
+
+	.d-flex.sm-col{
+		flex-direction: column;
+		padding: 0 10px;
+	}
+	.d-flex img{
+		margin: auto;
+		width: 240px;
+		height: 340px;
+		padding: 20px;
+		background-color: white;
+	}
+
+	.reader img{
+		width: 100%;
+	}
+}
+
+
+/*Medium*/
+@media only screen and (min-width: 768px) {
+	#nav{
+		display: flex;
+	}
+	
+	.drop-content{
+	  	position: absolute;
+	  	min-width: 160px;
+	  	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  	z-index: 5;
+	}
+	.dropdown:hover .drop-content{
+		display: block;
+	}
+	.container{
+		max-width: 1060px;
+	}
+	
+	.toon-img{
+		width: 200px;
+		height: 300px;
+	}
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 }
