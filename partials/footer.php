@@ -1,8 +1,7 @@
+</div>
 </main>
 <footer>
-		<span>
-			© 2020 WEBTOON.KZ All rights reserved
-		</span>
+		<span style="text-align: center;">©WEBTOON.KZ 2020<br>All rights reserved</span>
 	</footer>
 </body>
 </html>
