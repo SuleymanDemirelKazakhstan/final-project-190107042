@@ -11,4 +11,4 @@
 	$toonId = $_GET['id'];
 	$toon = $model->delete($toonId);
 
-	header("Location: ../index.php");
+	header("Location: ../");
