@@ -11,9 +11,9 @@
 <h2>Add New Webtoon</h2>
 
 <form method="post" enctype="multipart/form-data" action="" autocomplete="off" class="create-form">
-	<div class="d-flex">
+	<div class="d-flex sm-col" style="padding: 0">
 	 	<div>
-			<div class="form-group">
+			<div class="form-group" >
 				
 				<img src="../../partials/no-img.jpg" id="output">
 				<label for="picture" style="cursor: pointer;" class="picture-label">Upload Image</label>
@@ -63,12 +63,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group" >
 		<label>Description</label>
-		<textarea name="description" rows="5" cols="50"  class="form-control"></textarea>
+		<textarea name="description" rows="5"   class="form-control"></textarea>
 		<div class="invalid_form"></div>
 	</div>
-	<button type="submit" name="submit" >Submit</button>
+	<button type="submit" class="btn" name="submit" >Submit</button>
 </form>
 <script>
 var loadFile = function(event) {
