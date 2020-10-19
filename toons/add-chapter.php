@@ -26,6 +26,7 @@
 <style>
 #image-container{
 	display: flex;
+	flex-wrap: wrap;
 }	
 #image-container div{
 	padding: 10px;
@@ -48,11 +49,11 @@
 			<div class="invalid_form"></div>
 		</div>
 		<div class="form-group">
-			<label for="picture" style="cursor: pointer;" class="picture-label">Upload Chaper Images</label>
-			<input type="file" name="pictures[]" onchange="loadFile(event)" multiple="" accept="image/*">
+			<label for="pictures[]"  style="cursor: pointer;" class="picture-label">Upload Chaper Images</label>
+			<input type="file" style="display: none" id="pictures[]" name="pictures[]" onchange="loadFile(event)" multiple="" accept="image/*">
 		</div>
 	</div>
-	<button type="submit" name="submit" >Submit</button>
+	<button type="submit" class="btn" name="submit" >Submit</button>
 </form>
 
 <div id="image-container">
