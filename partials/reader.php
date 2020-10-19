@@ -31,6 +31,16 @@
 				<img src="<?php echo $img ?>">
 			<?php endforeach ?>
 		</div>
+		<div class="ch-nav" style="margin-top: 20px">
+			<?php if (isset($chapter['prev']) && (!empty($chapter['prev']) || $chapter['prev']=='0')): ?>
+				<a class="btn left" href="../<?php echo $chapter['prev']?>">PREV</a>
+			<?php endif ?>
+			<?php if (isset($chapter['next']) && (!empty($chapter['next']) || $chapter['next']=='0')): ?>
+				<a class="btn right" href="../<?php echo $chapter['next']?>">NEXT</a>	
+			<?php else: ?>
+				<a class="btn right" href="..">Webtoon info</a>
+			<?php endif ?>
+		</div>
 	</div>	
 </div>
 <?php include $dir.'/partials/footer.php'; ?>
