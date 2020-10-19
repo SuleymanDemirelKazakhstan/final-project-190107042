@@ -16,13 +16,126 @@
 	}
 	include $dir.'/partials/header.php';
 ?>
+	
+<style>
+* {box-sizing: border-box}
+.modal button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.modal .cancelbtn, .modal .deletebtn {
+  float: left;
+  width: 50%;
+}
+.modal .cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+.modal .deletebtn {
+  background-color: #f44336;
+}
+.modal .container {
+  padding: 16px;
+  text-align: center;
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+.modal hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.modal .close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+.modal .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .deletebtn {
+    width: 100%;
+  }
+}
+</style>
+
 <div>
 	<div class="d-flex">
 	<h1><?php echo $toon['name'] ?></h1>
 
 	<a href="../update.php?id=<?php echo $id ?>" class="btn edit" style="margin: auto; margin-right: 10px">EDIT</a>
-	<a href="../delete.php?id=<?php echo $id ?>" class="btn delete" style="margin: auto 0;">DELETE</a>
+	
+	<a onclick="document.getElementById('id01').style.display='block'" style="margin: auto 0; cursor: pointer;" class="btn delete">DELETE</a>
+
+	<div id="id01" class="modal">
+	  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  <form class="modal-content" action="/action_page.php">
+	    <div class="container">
+	      <h1>Delete Webtoon</h1>
+	      <p>Are you sure you want to delete this webtoon?</p>
+	      <div class="clearfix">
+	        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+	        <button type="button" href="../delete.php?id=<?php echo $id ?>" onclick="deleteToon()" class="deletebtn">DELETE</button>
+	      </div>
+	    </div>
+	  </form>
 	</div>
+
+	</div>
+
+	<script>
+	// Get the modal
+	var modal = document.getElementById('id01');
+
+	function deleteToon(){
+		console.log('mda');
+		document.getElementById('id01').style.display='none';
+		window.location.href = "/toons/delete.php?id=" + <?php echo $id?>;
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	}
+	</script>
+
 	<div class="d-flex">
 		<img src="<?php echo $toon['img_dir'] ? "img.".strtolower(pathinfo($toon['img_dir'],PATHINFO_EXTENSION)) : "../../partials/no-img.jpg"?>">
 		<div class="right">
@@ -84,8 +197,7 @@
 			<?php for ($j=count($chapters)-1; $j >= 0 && ($chapters[0] != '') ; $j--):?>
 				<a href="<?php echo $chapters[$j] ?>/">
 					<li class="d-flex">Chapter <?php echo $chapters[$j] ?>
-					<a href="../update-chapter.php?id=<?php echo $id ?>&chapter=<?php echo $id ?>" class="btn-sml edit" style="margin: auto; margin-right: 10px">EDIT</a>
-					<a href="../delete-chapter.php?id=<?php echo $id ?>&chapter=<?php echo $id ?>" class="btn-sml delete" style="margin: auto 0;">DELETE</a></li></a>
+					<a href="../delete-chapter.php?id=<?php echo $id ?>&chapter=<?php echo $id ?>" class="btn-sml delete" style="margin: auto; margin-right: 0">DELETE</a></li></a>
 			<?php endfor ?>
 		</ul>
 	</div>	
