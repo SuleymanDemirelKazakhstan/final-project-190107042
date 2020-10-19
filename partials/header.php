@@ -11,23 +11,26 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<div>
+		<div class="container">
+		<nav >
+			<div id="nav">
 				<a href="/"><span>HOME</span></a>
 				<div class="dropdown">
-					<a class="dropbtn"><span>GENRES <i class="fa fa-caret-down"></i></span></a>
-					<div class="drop-content">
+					<a class="dropbtn" onclick="dropBtn()"><span>GENRES <i class="fa fa-caret-down"></i></span></a>
+					<div class="drop-content" id="drop">
 						<?php foreach ($genres as $genre):?>
 						<a href="/webtoon-genres.php?genre=<?php echo $genre['altname'] ?>"><?php echo $genre['name'] ?></a>
 						<?php endforeach?>
 					</div>
 				</div>
 				<a href="/favorite.php"><span>FAVORITE</span></a>
+				<a href="/admin"><span>ADMIN</span></a>
+				<p>
+					<a href="create.php"  style="height: initial;"><span class="btn">Add Webtoon</span></a>
+				</p>
 			</div>
 			<div>
-				<p>
-					<a href="create.php" class="btn" style="height: initial; margin-right: 20px;">Add Webtoon</a>
-				</p>
+				
 			
 			<div id="search" >
 				<div>
@@ -36,13 +39,22 @@
         		</div>
 			</div>
 			</div>
-
-
+			<a class="bars" onclick="menuBtn()">
+			   <i class="fa fa-bars"></i>
+			</a>
 		</nav>
+		</div>
 	</header>
 	<script>
+		function menuBtn() {
+			var x = document.getElementById("nav");
+		  	x.classList.toggle("show");
+		}
+		function dropBtn() {
+			var x = document.getElementById("drop");
+		  	x.classList.toggle("show");
+		}
 		function search() {
-
 			var word = document.querySelector("input[name=search]").value;
 			console.log(word);
 			window.location.href = "/search.php?word="+word;
@@ -50,3 +62,4 @@
 	</script>
 	
 	<main>
+		<div class="container">
