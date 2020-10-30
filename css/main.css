@@ -53,12 +53,17 @@ nav div{
 	display: flex;
 }
 #nav{
+	margin-top: 0px;
 	display: none;
 	z-index: 5;
+	border: none;
 }
 #nav.show{
+	margin-top: 1px;
+	margin-left: -10px;
 	display: flex;
 	flex-direction: column;
+	border-bottom: solid 1px rgba(0,48,73,0.7);
 }
 .bars{
 	display: none;
@@ -94,7 +99,7 @@ nav a span{
 	margin: auto;
 	color: inherit;
 }
-nav a:hover.not(.bars){
+nav a:hover:not(.bars):not(.add-btn){
 	background-color: #003049;
 	color: white;
 }
@@ -166,9 +171,6 @@ main{
 	height: 100%;
 }
 
-.toon-container{
-	background-color: white;
-}
 .toons{
 	display: flex;
 	flex-wrap: wrap;
