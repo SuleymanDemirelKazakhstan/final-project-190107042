@@ -274,36 +274,10 @@
 				echo "<script>alert('success')</script>";
 			} 
 		}
-
 		public function fetch(){
 			$data = null;
 
 			$query = "SELECT * FROM toons";
-			if ($sql = $this->conn->query($query)) {
-				while ($toon = mysqli_fetch_assoc($sql)) {
-					$data[] = $toon; 		
-				} 	
-			} 
-			return $data;
-		}
-		public function fetchByGenre($genre){
-			$data = null;
-
-			$query = "SELECT * FROM toons";
-			if ($sql = $this->conn->query($query)) {
-				while ($toon = mysqli_fetch_assoc($sql)) {
-					$genres = explode(" ", $toon['genre']);
-					if (in_array($genre,$genres)) {
-						$data[] = $toon; 		
-					}
-				} 	
-			} 
-			return $data;
-		}
-		public function fetchFav(){
-			$data = null;
-
-			$query = "SELECT * FROM toons WHERE fav = 1";
 			if ($sql = $this->conn->query($query)) {
 				while ($toon = mysqli_fetch_assoc($sql)) {
 					$data[] = $toon; 		
