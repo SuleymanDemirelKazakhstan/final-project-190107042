@@ -26,7 +26,7 @@
 				<a href="/favorite.php"><span>FAVORITE</span></a>
 				<a href="/admin"><span>ADMIN</span></a>
 				<p>
-					<a href="create.php"  style="height: initial;"><span class="btn">Add Webtoon</span></a>
+					<a class="add-btn" href="create.php"  style="height: initial;"><span class="btn">Add Webtoon</span></a>
 				</p>
 			</div>
 			<div>
